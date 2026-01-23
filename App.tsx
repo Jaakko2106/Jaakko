@@ -44,28 +44,28 @@ const getProjectsData = (lang: 'en' | 'fi'): Project[] => {
         },
         {
             id: '2',
-            title: isFi ? "Responsiivinen Web-suunnittelu" : "Responsive Web Design",
+            title: isFi ? "Julia 1&2 Verkkosivusto" : "Julia 1&2 Website",
             description: isFi
-                ? "Suunnittelin ja prototypoin responsiivisen verkkosivuston verkkokauppa-alustalle, keskittyen käyttäjäkokemukseen ja konversio-optimointiin."
-                : "Designed and prototyped a responsive website for an e-commerce platform, focusing on user experience and conversion optimization.",
+                ? "Suunnittelin ja ylläpidin verkkosivustoa elokuvateatteri Julia 1&2:lle. Sivusto tarjoaa selkeän näkymän elokuvaohjelmistoon, tuleviin ensi-iltoihin ja teatterin tietoihin, heijastaen teatterin brändiä."
+                : "Designed and maintained the website for Movie Theatre Julia 1&2. The site provides a clear view of movie listings, upcoming premieres, and theatre information, reflecting the theatre's brand identity.",
             images: [
                 {
-                    url: 'https://placehold.co/600x400/B8B8FF/3F51B5?text=Homepage+Desktop',
-                    caption: isFi ? 'Työpöytänäkymä etusivusta' : 'Desktop Homepage Layout'
+                    url: 'https://placehold.co/1200x800/FAF9F6/7B1F22?text=JULIA+1+%26+2+Homepage',
+                    caption: isFi ? 'Etusivun näkymä työpöydällä' : 'Homepage Desktop View'
                 },
                 {
-                    url: 'https://placehold.co/600x400/C3C3FF/3F51B5?text=Product+Page',
-                    caption: isFi ? 'Tuotesivun näkymä' : 'Product Detail View'
+                    url: 'https://placehold.co/1200x800/FAF9F6/7B1F22?text=Movie+Details+Page',
+                    caption: isFi ? 'Elokuvan tietosivu' : 'Movie Details Page'
                 },
                 {
-                    url: 'https://placehold.co/600x400/AEAEFF/3F51B5?text=Mobile+View',
-                    caption: isFi ? 'Mobiiliresponsiivisuus' : 'Mobile Responsive Adapations'
+                    url: 'https://placehold.co/600x1200/FAF9F6/7B1F22?text=Mobile+View',
+                    caption: isFi ? 'Mobiiliresponsiivisuus' : 'Mobile Responsive View'
                 }
             ],
-            coverImage: 'https://placehold.co/600x400/B8B8FF/3F51B5?text=Web+Design+Project',
-            client: "Bloom E-Commerce",
-            projectType: isFi ? "UI/UX Suunnittelu" : "UI/UX Design",
-            tools: ["Figma", "React", "Tailwind CSS"]
+            coverImage: 'https://placehold.co/1200x800/FAF9F6/7B1F22?text=JULIA+1+%26+2+Website',
+            client: "Julia 1&2",
+            projectType: isFi ? "Web-suunnittelu" : "Web Design",
+            tools: ["HTML", "CSS", "JavaScript"]
         },
         {
             id: '3',

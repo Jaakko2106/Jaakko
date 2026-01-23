@@ -25,14 +25,14 @@ const EducationSection: React.FC = () => {
                         degree={t.education.schools[0].degree}
                         university={t.education.schools[0].university}
                         description={t.education.schools[0].description}
-                        period="2019 - 2022"
+                        period={t.education.schools[0].period}
                         direction="fade-in-left"
                     />
                     <EducationItem 
                         degree={t.education.schools[1].degree}
                         university={t.education.schools[1].university}
                         description={t.education.schools[1].description}
-                        period="2002 - 2006"
+                        period={t.education.schools[1].period}
                         direction="fade-in-right"
                     />
                 </div>

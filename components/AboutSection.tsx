@@ -161,6 +161,13 @@ const AboutSection: React.FC = () => {
         { id: "create", name: t.about.softSkillsList.Creativity, value: 15, color: "#6366f1" },  
     ];
 
+    const stats = [
+        { value: t.about.stats.years, label: t.about.stats.yearsDesc },
+        { value: t.about.stats.coffee, label: t.about.stats.coffeeDesc },
+        { value: t.about.stats.awards, label: t.about.stats.awardsDesc },
+        { value: t.about.stats.vip, label: t.about.stats.vipDesc },
+    ];
+
     return (
         <section id="about" className="py-20 px-8 relative overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300">
             <AnimatedBackground />
@@ -182,6 +189,16 @@ const AboutSection: React.FC = () => {
                         <p>{t.about.p1}</p>
                         <p>{t.about.p2}</p>
                     </div>
+                </div>
+
+                {/* Random Numbers / Stats Section */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20 animate-on-scroll fade-in-up">
+                    {stats.map((stat, index) => (
+                        <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border-b-4 border-indigo-500 text-center hover:-translate-y-1 transition-transform duration-300">
+                             <div className="text-3xl sm:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">{stat.value}</div>
+                             <div className="text-sm text-gray-600 dark:text-gray-300 font-medium">{stat.label}</div>
+                        </div>
+                    ))}
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-16 items-start">

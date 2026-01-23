@@ -102,22 +102,22 @@ const HomeSection: React.FC = () => {
             <div className="relative z-10 max-w-4xl mx-auto text-white pt-24 pb-20 md:py-0 flex flex-col items-center print:text-black print:block print:pt-0 print:pb-0 print:w-full">
                 {/* Print only contact info */}
                 <div className="hidden print:block text-gray-600 mb-6 text-sm text-center">
-                    <p>jaakko.kkallio@gmail.com &bull; +358 40 123 4567 &bull; Helsinki, Finland</p>
+                    <p>jaakko.kkallio@gmail.com &bull; +358 442457835 &bull; {t.home.location}</p>
                     <p>www.jaakkodesign.com</p>
                 </div>
 
-                <div className="flex flex-col-reverse md:flex-col items-center print:block print:clearfix">
-                     {/* Increased drop-shadow to [0_4px_4px_rgba(0,0,0,0.5)] to maintain readability over brighter video */}
-                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 animate-on-scroll zoom-in drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight print:text-4xl print:text-black print:drop-shadow-none print:mb-2">{t.home.greeting}</h1>
+                <div className="flex flex-col-reverse md:flex-col items-center gap-6 print:block print:clearfix">
+                     {/* Changed text color to light blue (blue-200) */}
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 animate-on-scroll zoom-in text-blue-200 drop-shadow-lg leading-tight print:text-4xl print:text-black print:drop-shadow-none print:mb-2">{t.home.greeting}</h1>
                     
                     <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 mx-auto bg-white rounded-full flex items-center justify-center overflow-hidden shadow-2xl border-4 border-indigo-200 animate-on-scroll zoom-in print:float-right print:w-32 print:h-32 print:shadow-none print:border-0 print:mb-4" style={{ transitionDelay: '0.4s' }}>
                         <img src="https://lh3.googleusercontent.com/a/ACg8ocIbYAtYBynI5k_UqBs1sOOl8RnaqJ3VHv89wBhQZTyr4OOJ2EtFHQ=s288-c-no" alt="Jaakko" className="w-full h-full object-cover" />
                     </div>
                 </div>
 
-                <p className="text-lg sm:text-xl md:text-2xl mb-8 animate-on-scroll fade-in-up drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] print:text-black print:drop-shadow-none print:text-left print:text-xl print:font-bold print:mb-4" style={{ transitionDelay: '0.2s' }}>{t.home.role}</p>
+                <p className="text-lg sm:text-xl md:text-2xl mb-8 animate-on-scroll fade-in-up text-white/90 drop-shadow-md print:text-black print:drop-shadow-none print:text-left print:text-xl print:font-bold print:mb-4" style={{ transitionDelay: '0.2s' }}>{t.home.role}</p>
                 
-                <p className="mt-8 text-base sm:text-lg max-w-2xl mx-auto animate-on-scroll fade-in-up drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] px-4 print:text-black print:drop-shadow-none print:px-0 print:text-left print:max-w-full print:mt-2" style={{ transitionDelay: '0.6s' }}>
+                <p className="mt-8 text-base sm:text-lg max-w-2xl mx-auto animate-on-scroll fade-in-up text-white/80 drop-shadow-sm px-4 print:text-black print:drop-shadow-none print:px-0 print:text-left print:max-w-full print:mt-2" style={{ transitionDelay: '0.6s' }}>
                     {t.home.description}
                 </p>
             </div>

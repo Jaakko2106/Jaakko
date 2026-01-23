@@ -29,20 +29,20 @@ const ExperienceSection: React.FC = () => {
                 <div className="relative">
                     <ExperienceItem 
                         title={t.experience.jobs[0].title}
-                        company="City of Helsinki"
-                        period="2019 - 2022"
+                        company={t.experience.jobs[0].company}
+                        period={t.experience.jobs[0].period}
                         description={t.experience.jobs[0].description}
                     />
                     <ExperienceItem 
                         title={t.experience.jobs[1].title}
-                        company="Movie Theatre Julia 1&2, Hyvinkää"
-                        period="2009 - 2020"
+                        company={t.experience.jobs[1].company}
+                        period={t.experience.jobs[1].period}
                         description={t.experience.jobs[1].description}
                     />
                     <ExperienceItem 
                         title={t.experience.jobs[2].title}
-                        company="Independent"
-                        period="Jun 2006 - Feb 2009"
+                        company={t.experience.jobs[2].company}
+                        period={t.experience.jobs[2].period}
                         description={t.experience.jobs[2].description}
                     />
                 </div>
