@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import AnimatedBackground from './AnimatedBackground';
 import { useLanguage } from '../contexts/LanguageContext';
+import EditableImage from './EditableImage';
 
 interface Skill {
     name: string;
@@ -177,10 +178,12 @@ const AboutSection: React.FC = () => {
                 <div className="flex flex-col md:flex-row items-center gap-12 mb-20">
                     <div className="md:w-5/12 w-full animate-on-scroll fade-in-left">
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 ease-out group">
-                            <div className="absolute inset-0 bg-indigo-600/10 dark:bg-indigo-900/20 group-hover:bg-transparent transition-colors z-10"></div>
-                            <img 
-                                src="https://lh3.googleusercontent.com/a/ACg8ocIErQDc91ck-z8LvnzwofgI158k8P3kfkldTtQ0pTqMygEIhMMZTA=s539-c-no" 
-                                alt="Jaakko Profile" 
+                            <div className="absolute inset-0 bg-indigo-600/10 dark:bg-indigo-900/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
+                            <EditableImage 
+                                storageKey="about-profile"
+                                defaultSrc="https://lh3.googleusercontent.com/a/ACg8ocIErQDc91ck-z8LvnzwofgI158k8P3kfkldTtQ0pTqMygEIhMMZTA=s539-c-no"
+                                alt="Jaakko Profile"
+                                wrapperClassName="w-full h-auto"
                                 className="w-full h-auto object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700"
                             />
                         </div>

@@ -3,6 +3,7 @@ import React, { useState, useMemo, useRef } from 'react';
 import { Project } from '../types';
 import AnimatedBackground from './AnimatedBackground';
 import { useLanguage } from '../contexts/LanguageContext';
+import EditableImage from './EditableImage';
 
 interface WorksSectionProps {
     projects: Project[];
@@ -33,6 +34,13 @@ const WorksSection: React.FC<WorksSectionProps> = ({ projects, onProjectClick })
         return 'fade-in-right';
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent, project: Project) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onProjectClick(project);
+        }
+    };
+
     return (
         <section id="works" ref={sectionRef} className="py-20 px-8 relative overflow-hidden bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
             <AnimatedBackground />
@@ -57,43 +65,48 @@ const WorksSection: React.FC<WorksSectionProps> = ({ projects, onProjectClick })
                     ))}
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]" role="list">
                     {filteredProjects.map((project, index) => (
-                        <button 
-                            type="button"
+                        <div
                             key={project.id} 
-                            className={`work-item group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 ease-out relative animate-on-scroll ${getDirectionClass(index)} w-full text-left focus:outline-none focus:ring-4 focus:ring-indigo-300`}
                             onClick={() => onProjectClick(project)}
-                            aria-label={`View details for ${project.title}`}
+                            onKeyDown={(e) => handleKeyDown(e, project)}
+                            tabIndex={0}
+                            role="button"
+                            aria-label={`${t.works.viewAll}: ${project.title}`}
+                            className={`work-item group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-[1.03] hover:-translate-y-1 transition-all duration-300 ease-out relative animate-on-scroll ${getDirectionClass(index)} w-full text-left bg-white dark:bg-gray-900 cursor-pointer focus:outline-none focus:ring-4 focus:ring-indigo-500/50`}
                         >
                             <div className="relative h-72 overflow-hidden bg-gray-200 dark:bg-gray-700">
-                                <img 
-                                    src={project.coverImage} 
-                                    alt="" 
-                                    aria-hidden="true"
+                                <EditableImage 
+                                    storageKey={`project-cover-${project.id}`}
+                                    defaultSrc={project.coverImage}
+                                    alt=""
+                                    wrapperClassName="w-full h-full"
                                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none" />
                             </div>
                             
-                            <div className="absolute inset-0 bg-indigo-950/80 backdrop-blur-[3px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-all duration-400 p-6">
-                                <h3 className="text-white text-2xl font-bold text-center mb-2 transform translate-y-4 group-hover:translate-y-0 group-focus:translate-y-0 transition-all duration-300 ease-out">
+                            <div 
+                                className="absolute inset-0 bg-indigo-950/80 backdrop-blur-[3px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400 p-6 pointer-events-none"
+                            >
+                                <h3 className="text-white text-2xl font-bold text-center mb-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-out">
                                     {project.title}
                                 </h3>
                                 
                                 {project.projectType && (
-                                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-indigo-100 bg-indigo-500/20 border border-indigo-400/30 px-3 py-1 rounded-full transform translate-y-6 group-hover:translate-y-0 group-focus:translate-y-0 transition-all duration-300 delay-100 ease-out">
+                                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-indigo-100 bg-indigo-500/20 border border-indigo-400/30 px-3 py-1 rounded-full transform translate-y-6 group-hover:translate-y-0 transition-all duration-300 delay-100 ease-out">
                                         {project.projectType}
                                     </span>
                                 )}
                                 
-                                <div className="mt-6 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-focus:translate-y-0 group-hover:opacity-100 group-focus:opacity-100 transition-all duration-300 delay-200">
+                                <div className="mt-6 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-200">
                                     <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-indigo-900 transition-colors">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                     </div>
                                 </div>
                             </div>
-                        </button>
+                        </div>
                     ))}
                     
                     {filteredProjects.length === 0 && (

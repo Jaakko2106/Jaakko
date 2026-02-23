@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Header from './components/Header';
 import OffCanvasMenu from './components/OffCanvasMenu';
 import HomeSection from './components/HomeSection';
@@ -16,7 +16,7 @@ import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 
 const getProjectsData = (lang: 'en' | 'fi'): Project[] => {
     const isFi = lang === 'fi';
-    return [
+    const baseProjects: Project[] = [
         {
             id: '1',
             title: isFi ? "Brändi-identiteetin Suunnittelu" : "Brand Identity Design",
@@ -93,11 +93,29 @@ const getProjectsData = (lang: 'en' | 'fi'): Project[] => {
             tools: ["Procreate", "Photoshop", "After Effects"]
         }
     ];
+
+    // Override with user uploaded images from LocalStorage
+    if (typeof window !== 'undefined') {
+        return baseProjects.map(p => {
+            const storedCover = localStorage.getItem(`project-cover-${p.id}`);
+            const storedImages = p.images.map((img, idx) => {
+                const storedImg = localStorage.getItem(`project-image-${p.id}-${idx}`);
+                return storedImg ? { ...img, url: storedImg } : img;
+            });
+            return {
+                ...p,
+                coverImage: storedCover || p.coverImage,
+                images: storedImages
+            };
+        });
+    }
+
+    return baseProjects;
 }
 
 const AppContent: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
     const [theme, setTheme] = useState<'light' | 'dark'>(() => {
         if (typeof window !== 'undefined') {
             const saved = localStorage.getItem('theme');
@@ -109,8 +127,26 @@ const AppContent: React.FC = () => {
     const observerRef = useRef<IntersectionObserver | null>(null);
     const { language } = useLanguage();
     
-    // Get projects based on current language
-    const projectsData = getProjectsData(language);
+    // State to hold projects to ensure they update on storage events
+    const [projectsData, setProjectsData] = useState<Project[]>([]);
+    const [refreshKey, setRefreshKey] = useState(0);
+
+    // Fetch projects when language changes or refresh triggered
+    useEffect(() => {
+        setProjectsData(getProjectsData(language));
+    }, [language, refreshKey]);
+
+    // Listen for image updates from EditableImage component
+    useEffect(() => {
+        const handleImageUpdate = () => {
+            setRefreshKey(prev => prev + 1);
+        };
+        window.addEventListener('image-updated', handleImageUpdate);
+        return () => window.removeEventListener('image-updated', handleImageUpdate);
+    }, []);
+
+    // Derive selected project from ID to ensure we always have the latest data (including new images)
+    const selectedProject = projectsData.find(p => p.id === selectedProjectId) || null;
 
     useEffect(() => {
         // Apply theme to document
@@ -193,8 +229,8 @@ const AppContent: React.FC = () => {
     
     const handleMenuToggle = () => setIsMenuOpen(!isMenuOpen);
     const handleMenuClose = () => setIsMenuOpen(false);
-    const handleProjectClick = (project: Project) => setSelectedProject(project);
-    const handleModalClose = () => setSelectedProject(null);
+    const handleProjectClick = (project: Project) => setSelectedProjectId(project.id);
+    const handleModalClose = () => setSelectedProjectId(null);
     const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
     return (
