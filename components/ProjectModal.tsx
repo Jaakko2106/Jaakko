@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Project } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import EditableImage from './EditableImage';
@@ -429,6 +430,15 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                          ) : (
                              <div className="w-full h-full flex items-center justify-center text-gray-400">No images available</div>
                          )}
+
+                         <button 
+                            onClick={toggleFullscreen}
+                            className="absolute top-4 right-4 p-2 rounded-lg bg-white/80 dark:bg-gray-900/60 hover:bg-white dark:hover:bg-gray-900 text-gray-800 dark:text-white shadow-md backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 z-20 flex items-center gap-2 text-xs font-bold uppercase tracking-wider"
+                            aria-label="View fullscreen"
+                         >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            <span className="hidden sm:inline">Fullscreen</span>
+                         </button>
 
                          {project.images.length > 1 && (
                              <>

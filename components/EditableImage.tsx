@@ -21,6 +21,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
     clickToUpload = false
 }) => {
     const [src, setSrc] = useState(defaultSrc);
+    const [isLoaded, setIsLoaded] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -71,8 +72,11 @@ const EditableImage: React.FC<EditableImageProps> = ({
             <img 
                 src={src} 
                 alt={alt} 
-                className={className}
-                onLoad={onLoad} 
+                className={`${className || ''} transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+                onLoad={() => {
+                    setIsLoaded(true);
+                    if (onLoad) onLoad();
+                }} 
             />
             
             <div 

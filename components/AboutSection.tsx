@@ -23,6 +23,7 @@ const skills: Skill[] = [
     { name: "Figma / Sketch", level: 90 },
     { name: "After Effects", level: 75 },
     { name: "Premiere Pro", level: 70 },
+    { name: "WordPress", level: 85 },
 ];
 
 const SkillBar: React.FC<{ skill: Skill; delay?: string }> = ({ skill, delay = '0s' }) => (
