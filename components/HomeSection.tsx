@@ -3,138 +3,94 @@ import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import EditableImage from './EditableImage';
 
-const SnowOverlay: React.FC = () => {
-    // Memoize snowflakes to prevent re-rendering on every parent update
-    const flakes = useMemo(() => {
-        return new Array(50).fill(0).map((_, i) => ({
-            id: i,
-            left: Math.random() * 100,
-            animationDuration: 5 + Math.random() * 10, // 5-15s
-            animationDelay: Math.random() * 15, // 0-15s delay
-            opacity: 0.4 + Math.random() * 0.6,
-            size: 2 + Math.random() * 4 // 2-6px
-        }));
-    }, []);
-
+const CityLandscape: React.FC = () => {
     return (
-        <div className="absolute inset-0 pointer-events-none z-[5] overflow-hidden print:hidden" aria-hidden="true">
-             {flakes.map((flake) => (
-                 <div 
-                    key={flake.id}
-                    className="absolute bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,0.8)]"
-                    style={{
-                        left: `${flake.left}%`,
-                        top: '-10px', // Start slightly above
-                        width: `${flake.size}px`,
-                        height: `${flake.size}px`,
-                        opacity: flake.opacity,
-                        animation: `snowfall ${flake.animationDuration}s linear infinite`,
-                        animationDelay: `-${flake.animationDelay}s` // Negative delay to start mid-animation
-                    }}
-                 />
-             ))}
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden print:hidden" aria-hidden="true">
+            {/* Sky Background with Dusk till Dawn Animation */}
+            <div className="absolute inset-0 animate-sky-cycle"></div>
+            
+            {/* Stars - only visible at night */}
+            <div className="absolute inset-0 opacity-0 animate-stars-fade">
+                {new Array(100).fill(0).map((_, i) => (
+                    <div 
+                        key={i}
+                        className="absolute bg-white rounded-full"
+                        style={{
+                            top: `${Math.random() * 70}%`,
+                            left: `${Math.random() * 100}%`,
+                            width: `${Math.random() * 2 + 1}px`,
+                            height: `${Math.random() * 2 + 1}px`,
+                            opacity: Math.random() * 0.8 + 0.2,
+                            animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
+                            animationDelay: `${Math.random() * 5}s`
+                        }}
+                    />
+                ))}
+            </div>
+
+            {/* Sun / Moon */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] animate-celestial-rotate">
+                {/* Sun */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-24 bg-yellow-400 rounded-full shadow-[0_0_60px_rgba(250,204,21,0.8)]"></div>
+                {/* Moon */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-20 bg-gray-100 rounded-full shadow-[0_0_40px_rgba(255,255,255,0.4)]">
+                    {/* Moon craters */}
+                    <div className="absolute top-4 left-4 w-4 h-4 bg-gray-300 rounded-full opacity-40"></div>
+                    <div className="absolute top-10 left-8 w-6 h-6 bg-gray-300 rounded-full opacity-40"></div>
+                    <div className="absolute top-6 left-12 w-3 h-3 bg-gray-300 rounded-full opacity-40"></div>
+                </div>
+            </div>
+
+            {/* City Silhouette */}
+            <div className="absolute bottom-0 left-0 w-full h-1/3 flex items-end justify-center">
+                <svg viewBox="0 0 1200 400" className="w-full h-full preserve-3d" preserveAspectRatio="none">
+                    {/* Back buildings */}
+                    <path d="M0,400 L0,300 L50,300 L50,250 L100,250 L100,320 L150,320 L150,200 L200,200 L200,350 L250,350 L250,280 L300,280 L300,400 Z" fill="#1e1b4b" opacity="0.4" />
+                    <path d="M900,400 L900,320 L950,320 L950,220 L1000,220 L1000,300 L1050,300 L1050,260 L1100,260 L1100,350 L1150,350 L1150,400 Z" fill="#1e1b4b" opacity="0.4" />
+                    
+                    {/* Mid buildings */}
+                    <path d="M100,400 L100,280 L180,280 L180,220 L250,220 L250,300 L320,300 L320,180 L400,180 L400,350 L480,350 L480,400 Z" fill="#1e1b4b" opacity="0.7" />
+                    <path d="M700,400 L700,300 L780,300 L780,200 L850,200 L850,320 L920,320 L920,250 L1000,250 L1000,400 Z" fill="#1e1b4b" opacity="0.7" />
+                    
+                    {/* Front buildings */}
+                    <path d="M0,400 L0,350 L80,350 L80,250 L160,250 L160,320 L240,320 L240,200 L320,200 L320,380 L400,380 L400,280 L480,280 L480,150 L560,150 L560,320 L640,320 L640,220 L720,220 L720,350 L800,350 L800,260 L880,260 L880,380 L960,380 L960,300 L1040,300 L1040,360 L1120,360 L1120,280 L1200,280 L1200,400 Z" fill="#0f172a" />
+                    
+                    {/* Windows - glowing at night */}
+                    <g className="animate-windows-glow">
+                        <rect x="100" y="300" width="10" height="10" fill="#fef08a" />
+                        <rect x="120" y="300" width="10" height="10" fill="#fef08a" />
+                        <rect x="100" y="320" width="10" height="10" fill="#fef08a" />
+                        <rect x="260" y="220" width="10" height="10" fill="#fef08a" />
+                        <rect x="280" y="220" width="10" height="10" fill="#fef08a" />
+                        <rect x="500" y="180" width="10" height="10" fill="#fef08a" />
+                        <rect x="520" y="180" width="10" height="10" fill="#fef08a" />
+                        <rect x="500" y="200" width="10" height="10" fill="#fef08a" />
+                        <rect x="740" y="250" width="10" height="10" fill="#fef08a" />
+                        <rect x="760" y="250" width="10" height="10" fill="#fef08a" />
+                        <rect x="1060" y="320" width="10" height="10" fill="#fef08a" />
+                        <rect x="1080" y="320" width="10" height="10" fill="#fef08a" />
+                    </g>
+                </svg>
+            </div>
+            
+            {/* Fog / Mist */}
+            <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-gray-900/40 to-transparent z-10"></div>
         </div>
     );
 };
 
 const HomeSection: React.FC = () => {
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const [isPlaying, setIsPlaying] = useState(true);
-    const [isMuted, setIsMuted] = useState(true);
     const { t } = useLanguage();
-
-    useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
-
-        const handlePlay = () => setIsPlaying(true);
-        const handlePause = () => setIsPlaying(false);
-        const handleVolumeChange = () => setIsMuted(video.muted);
-
-        video.addEventListener('play', handlePlay);
-        video.addEventListener('pause', handlePause);
-        video.addEventListener('volumechange', handleVolumeChange);
-
-        return () => {
-            video.removeEventListener('play', handlePlay);
-            video.removeEventListener('pause', handlePause);
-            video.removeEventListener('volumechange', handleVolumeChange);
-        };
-    }, []);
-
-    const togglePlay = () => {
-        if (videoRef.current) {
-            if (isPlaying) {
-                videoRef.current.pause();
-            } else {
-                videoRef.current.play().catch((error) => {
-                    console.error("Autoplay prevented or interrupted:", error);
-                });
-            }
-        }
-    };
-
-    const toggleMute = () => {
-        if (videoRef.current) {
-            videoRef.current.muted = !isMuted;
-        }
-    };
 
     return (
         <section id="home" className="relative min-h-[100dvh] w-full flex flex-col justify-center items-center text-center px-4 py-20 overflow-hidden group print:min-h-0 print:p-0 print:block">
-            {/* Video Background */}
-            <video 
-                ref={videoRef}
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                poster="https://placehold.co/1920x1080/1e1b4b/FFFFFF?text=Jaakko+Design"
-                className="absolute top-0 left-0 w-full h-full object-cover z-0 print:hidden"
-                aria-hidden="true"
-                tabIndex={-1}
-            >
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-blue-fluid-smoke-43093-large.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
+            {/* City Landscape Background */}
+            <CityLandscape />
 
-            {/* Snow Animation Overlay */}
-            <SnowOverlay />
-
-            {/* Reduced overlay opacity (from 50% to 20%) to make animation significantly more visible */}
-            <div className="absolute inset-0 bg-gray-900/20 z-0 pointer-events-none print:hidden"></div>
-            {/* Gradient for text readability - slightly lighter than before */}
-            <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-transparent to-gray-900/80 z-0 pointer-events-none print:hidden"></div>
-
-            {/* Video Controls - Positioned bottom-left with better mobile spacing */}
-            <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 z-20 flex gap-3 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 ease-in-out print:hidden">
-                <button 
-                    onClick={togglePlay}
-                    className="p-2.5 bg-white/10 backdrop-blur-md hover:bg-white/25 rounded-full text-white/90 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400/50 border border-white/10 shadow-lg"
-                    aria-label={isPlaying ? "Pause video" : "Play video"}
-                    aria-pressed={isPlaying}
-                    title={isPlaying ? "Pause background" : "Play background"}
-                >
-                    {isPlaying ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>
-                    ) : (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M5 3.86987C5 2.53654 6.44444 1.70321 7.6 2.36988L20.6 9.86988C21.7556 10.5365 21.7556 12.2032 20.6 12.8699L7.6 20.3699C6.44444 21.0365 5 20.2032 5 18.8699V3.86987Z"/></svg>
-                    )}
-                </button>
-                <button 
-                    onClick={toggleMute}
-                    className="p-2.5 bg-white/10 backdrop-blur-md hover:bg-white/25 rounded-full text-white/90 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400/50 border border-white/10 shadow-lg"
-                    aria-label={isMuted ? "Unmute video" : "Mute video"}
-                    aria-pressed={isMuted}
-                    title={isMuted ? "Unmute sound" : "Mute sound"}
-                >
-                    {isMuted ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
-                    ) : (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                    )}
-                </button>
-            </div>
+            {/* Reduced overlay opacity to make animation significantly more visible */}
+            <div className="absolute inset-0 bg-gray-900/10 z-0 pointer-events-none print:hidden"></div>
+            {/* Gradient for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-transparent to-gray-900/60 z-0 pointer-events-none print:hidden"></div>
 
             {/* Main content container with adjusted padding for header clearance and better mobile spacing */}
             <div className="relative z-10 max-w-4xl mx-auto text-white w-full flex flex-col items-center justify-center pt-24 pb-16 md:py-0 print:text-black print:block print:pt-0 print:pb-0 print:w-full">

@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-indigo-950: #1e1b4b;
+  --breakpoint-print: print;
+}
+
+@layer utilities {
+  .animate-sky-cycle {
+    animation: sky-cycle 40s linear infinite;
+  }
+
+  .animate-stars-fade {
+    animation: stars-fade 40s linear infinite;
+  }
+
+  .animate-celestial-rotate {
+    animation: celestial-rotate 40s linear infinite;
+  }
+
+  .animate-windows-glow {
+    animation: windows-glow 40s linear infinite;
+  }
+}
+
+@keyframes sky-cycle {
+  0%, 100% { background: linear-gradient(to bottom, #0c4a6e, #0ea5e9); } /* Dawn */
+  25% { background: linear-gradient(to bottom, #0ea5e9, #38bdf8); } /* Day */
+  50% { background: linear-gradient(to bottom, #f97316, #fb923c); } /* Dusk */
+  75% { background: linear-gradient(to bottom, #020617, #1e1b4b); } /* Night */
+}
+
+@keyframes stars-fade {
+  0%, 45%, 100% { opacity: 0; }
+  60%, 90% { opacity: 1; }
+}
+
+@keyframes celestial-rotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes windows-glow {
+  0%, 45%, 100% { opacity: 0; }
+  60%, 90% { opacity: 1; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}

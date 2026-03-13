@@ -81,7 +81,7 @@ const WorksSection: React.FC<WorksSectionProps> = ({ projects, onProjectClick })
                                 tabIndex={0}
                                 role="button"
                                 aria-label={`${t.works.viewAll}: ${project.title}`}
-                                className={`work-item group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-[1.03] hover:-translate-y-1 transition-all duration-300 ease-out relative animate-on-scroll ${getDirectionClass(index)} w-full text-left bg-white dark:bg-gray-900 cursor-pointer focus:outline-none focus:ring-4 focus:ring-indigo-500/50`}
+                                className={`work-item group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-[1.02] hover:-translate-y-2 transition-all duration-500 ease-out relative animate-on-scroll ${getDirectionClass(index)} w-full text-left bg-white dark:bg-gray-900 cursor-pointer focus:outline-none focus:ring-4 focus:ring-indigo-500/50`}
                             >
                                 <div className="relative h-72 overflow-hidden bg-gray-200 dark:bg-gray-700">
                                     <EditableImage 

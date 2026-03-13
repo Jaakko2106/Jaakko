@@ -107,19 +107,19 @@ const OffCanvasMenu: React.FC<OffCanvasMenuProps> = ({ isOpen, onClose }) => {
                 </svg>
             </button>
             
-            <nav className="flex flex-col space-y-1 mb-8">
+            <nav className="flex flex-col space-y-2 mb-8">
                 {menuItems.map((item) => (
                     <a 
                         key={item.href}
                         href={item.href} 
                         onClick={handleLinkClick} 
-                        className="group flex items-center px-2 py-2.5 text-base font-medium rounded-lg transition-all duration-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20"
+                        className="group flex items-center px-4 py-3.5 text-base font-medium rounded-lg transition-all duration-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20"
                         tabIndex={isOpen ? 0 : -1}
                     >
                          <span className="text-white/70 group-hover:text-white transition-colors">
                              {item.icon}
                          </span>
-                         <span>{item.label}</span>
+                         <span className="pl-1">{item.label}</span>
                     </a>
                 ))}
             </nav>
